@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toastError, toastSuccess } from '../lib/toastify';
 import { useNavigate } from 'react-router-dom';
 
 const inputStyles =
-  'w-3/5 mb-2 sm:mb-4 lg:mb-8 p-2 outline-none border-b border-transparent focus:border-slate-400 dark:focus:border-slate-100 dark:bg-slate-500 rounded transition-all';
+  'w-4/5 mb-2 sm:mb-4 lg:mb-8 p-2 outline-none border-b border-transparent focus:border-slate-400 dark:focus:border-slate-100 dark:bg-slate-500 rounded transition-all';
 
 const AddDuck = () => {
   const navigate = useNavigate();
-
   const [formState, setFormState] = useState({
     name: '',
     image: '',
@@ -24,15 +23,15 @@ const AddDuck = () => {
     e.preventDefault();
     try {
       const { status } = await axios.post(
-        'https://wd037-ducks-backend.onrender.com/ducks',
+        `${import.meta.env.VITE_API_URL}/ducks`,
         { ...formState }
       );
       if (status === 201) {
-        toast.success('Duck added!');
+        toastSuccess('Duck added!');
         setTimeout(() => navigate('/'), 2000);
       }
     } catch (error) {
-      error.response.data.error.map((err) => toast.error(err));
+      error.response.data.error.forEach((err) => toastError(err));
     }
   };
 
@@ -50,33 +49,33 @@ const AddDuck = () => {
             type='text'
             placeholder="Duck's Name"
             name='name'
-            className={inputStyles}
             value={formState.name}
             onChange={handleChange}
+            className={inputStyles}
           />
           <input
             type='text'
-            placeholder="Duck's Image URL"
+            placeholder='Duck photo URL'
             name='image'
-            className={inputStyles}
             value={formState.image}
             onChange={handleChange}
+            className={inputStyles}
           />
           <input
             type='text'
-            placeholder="Duck's Favorite Quote"
+            placeholder="Duck's favorite quote"
             name='quote'
-            className={inputStyles}
             value={formState.quote}
             onChange={handleChange}
+            className={inputStyles}
           />
           <input
             type='text'
-            placeholder="Duck's Owner"
+            placeholder="Duck's owner"
             name='owner'
-            className={inputStyles}
             value={formState.owner}
             onChange={handleChange}
+            className={inputStyles}
           />
         </div>
         <button

@@ -2,7 +2,6 @@ const { param, body, validationResult } = require('express-validator');
 
 const checkErrors = (req, res, next) => {
   const errors = validationResult(req);
-  console.log(errors);
   const errorList = errors.array().map((err) => err.msg);
   return errors.isEmpty() ? next() : next(errorList);
 };
@@ -13,30 +12,38 @@ const checkId = [
 ];
 
 const checkAddDuck = [
-  body('name', 'No name was sent')
+  body('name')
     .trim()
-    .isAlpha()
+    .notEmpty()
+    .withMessage('No name sent')
+    .matches(/^[a-zA-Z\s.]*$/)
     .withMessage('Name must contain only characters')
     .isLength({ max: 20 })
     .withMessage('Name must be up to 20 characters long'),
-  body('image', 'No image url was sent')
+  body('image')
+    .notEmpty()
+    .withMessage('No email sent')
     .isURL()
     .withMessage('Image must be a valid URL'),
   body('quote')
-    .optional({ falsy: true })
+    .optional({ values: 'falsy' })
     .isLength({ min: 15, max: 50 })
     .withMessage('Quotes must be between 15 and 50 characters long'),
-  body('owner').isAlpha().withMessage('Owner must contain only characters'),
+  body('owner')
+    .notEmpty()
+    .withMessage('No owner sent')
+    .matches(/^[a-zA-Z\s.]*$/)
+    .withMessage('Owner must contain only characters'),
   checkErrors,
 ];
 
 const checkUpdateDuck = [
-  body('name', 'No name was sent.')
+  body('name')
     .optional({ values: 'falsy' })
     .trim()
-    .isAlpha()
+    .matches(/^[a-zA-Z\s.]*$/)
     .withMessage('Name must contain only letters.'),
-  body('image', 'No image url was sent.')
+  body('image')
     .optional({ values: 'falsy' })
     .trim()
     .isURL()
@@ -45,11 +52,20 @@ const checkUpdateDuck = [
     .optional({ values: 'falsy' })
     .isLength({ min: 15, max: 50 })
     .withMessage('Quotes must be between 15 and 50 characters long.'),
-  body('owner', 'No owner was sent.')
+  body('owner')
     .optional({ values: 'falsy' })
-    .isAlpha()
+    .matches(/^[a-zA-Z\s.]*$/)
     .withMessage('Owner must contain only letters.'),
   checkErrors,
 ];
 
-module.exports = { checkId, checkAddDuck, checkUpdateDuck };
+const checkAskDuck = [
+  body('input')
+    .notEmpty()
+    .withMessage('No input sent')
+    .isString()
+    .withMessage('Input must be a string.'),
+  checkErrors,
+];
+
+module.exports = { checkId, checkAddDuck, checkUpdateDuck, checkAskDuck };

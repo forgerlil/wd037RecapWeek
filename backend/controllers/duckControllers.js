@@ -1,4 +1,5 @@
 const DuckCollection = require('../models/duckSchema');
+const askAI = require('../lib/openai.js');
 const ErrorStatus = require('../utils/errorStatus');
 
 const getAllDucks = async (req, res, next) => {
@@ -60,10 +61,21 @@ const deleteDuck = async (req, res, next) => {
   }
 };
 
+const askDuck = async (req, res, next) => {
+  try {
+    const { input } = req.body;
+    const aiResponse = await askAI(input);
+    res.json({ duckSays: aiResponse });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAllDucks,
   getOneDuck,
   createDuck,
   updateDuck,
   deleteDuck,
+  askDuck,
 };

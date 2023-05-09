@@ -1,7 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import AddDuck from './pages/AddDuck';
-import Layout from './components/Layout';
+import {
+  AddDuck,
+  DebuggingDuck,
+  Home,
+  Layout,
+  Login,
+  NotFound,
+  Register,
+  ShowShibas,
+} from './pages';
 
 const App = () => {
   return (
@@ -9,9 +16,13 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path='/duck/:id' element={<DebuggingDuck />} />
           <Route path='addDuck' element={<AddDuck />} />
-          <Route path='duck/:id' element={<div>Single Duck</div>} />{' '}
-          <Route path='*' element={<div>Page does not exist!</div>} />
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
+          <Route path='/showshibas' element={<ShowShibas />} />
+          <Route path='404' element={<NotFound />} />
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     </>
