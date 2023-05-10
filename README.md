@@ -37,7 +37,7 @@ Goal is to scaffold a front end SPA with React to interact with our API
 Learning goals for this step are:
 
 - Using Vite
-- Revisiting hooks,
+- Revisiting hooks
 - Routing with React Router DOM
 - Styling is done with Tailwind but learning it is not a necessity for these sessions
 - Network requests with Axios → better error handling
@@ -56,3 +56,29 @@ Learning goals for this step are:
 7. Deployed our app to Netlify
 
 The remainder of the app was added at a later point, and is not part of the recordings. Feel free to check the remaining code!
+
+## Day 03
+
+### Backend Authentication Implementation with JWT
+
+The goal is to use JWT to authenticate users and protect routes on our server
+Learning goals for this step are:
+
+- Create the User model
+- Implement authentication endpoints
+  - /signup → returns token
+  - signin → returns token
+  - me → returns user (owner of token)
+- Modify Duck model (to refer to User)
+
+### Step by step on how we achieved this:
+
+1. Installed relevant dependencies: bcrypt, jsonwebtoken and cookie-parser
+2. Created a new mongoose schema for users
+3. Established a route for users in our api, split into subroutes for registration, login and getting a single user
+4. Created controllers to register an user, to login the user, and to get a single user
+5. Used bcrypt to salt and hash the password before saving it to the database, and to compare passwords on login
+6. Used jsonwebtoken to create a token on login and registration, and return that to the client in a cookie.
+7. Created a middleware to verify the token and protect the single user route
+8. Altered the duck schema to include a reference to the user that created it
+9. Altered cors setup to allow cookies from different origins

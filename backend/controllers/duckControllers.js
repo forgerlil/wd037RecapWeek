@@ -4,7 +4,7 @@ const ErrorStatus = require('../utils/errorStatus');
 
 const getAllDucks = async (req, res, next) => {
   try {
-    const getDucks = await DuckCollection.find();
+    const getDucks = await DuckCollection.find().populate('owner');
     if (!getDucks) throw new ErrorStatus('No ducks found', 404);
     return res.json(getDucks);
   } catch (error) {
@@ -15,7 +15,7 @@ const getAllDucks = async (req, res, next) => {
 const getOneDuck = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const getSingleDuck = await DuckCollection.findById(id);
+    const getSingleDuck = await DuckCollection.findById(id).populate('owner');
     if (!getSingleDuck) throw new ErrorStatus('Duck not found', 404);
     return res.json(getSingleDuck);
   } catch (error) {
@@ -42,7 +42,7 @@ const updateDuck = async (req, res, next) => {
       id,
       { name, image, quote, owner },
       { new: true, runValidators: true }
-    );
+    ).populate('owner');
 
     return res.json(updatedDuck);
   } catch (error) {

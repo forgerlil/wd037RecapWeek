@@ -17,7 +17,8 @@ const RubberDuckCard = ({ _id, name, image, owner }) => {
           My name is {name}! Do you need my help with debugging?
         </p>
         <p className='text-center text-xs'>
-          I am one of {owner}&apos;s trusty confidantes.
+          I am one of {owner.firstName} {owner.lastName}&apos;s trusty
+          confidantes.
         </p>
       </div>
     </>

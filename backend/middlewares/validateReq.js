@@ -29,11 +29,7 @@ const checkAddDuck = [
     .optional({ values: 'falsy' })
     .isLength({ min: 15, max: 50 })
     .withMessage('Quotes must be between 15 and 50 characters long'),
-  body('owner')
-    .notEmpty()
-    .withMessage('No owner sent')
-    .matches(/^[a-zA-Z\s.]*$/)
-    .withMessage('Owner must contain only characters'),
+  body('owner').notEmpty().withMessage('No owner sent'),
   checkErrors,
 ];
 
@@ -52,10 +48,7 @@ const checkUpdateDuck = [
     .optional({ values: 'falsy' })
     .isLength({ min: 15, max: 50 })
     .withMessage('Quotes must be between 15 and 50 characters long.'),
-  body('owner')
-    .optional({ values: 'falsy' })
-    .matches(/^[a-zA-Z\s.]*$/)
-    .withMessage('Owner must contain only letters.'),
+  body('owner').optional({ values: 'falsy' }),
   checkErrors,
 ];
 
