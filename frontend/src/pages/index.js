@@ -4,6 +4,7 @@ import Home from './Home';
 import NotFound from './NotFound';
 import Layout from './Layout';
 import Login from './Login';
+import ProtectedRoute from './ProtectedRoute';
 import Register from './Register';
 import ShowShibas from './ShowShibas';
 
@@ -14,6 +15,7 @@ export {
   Layout,
   Login,
   NotFound,
+  ProtectedRoute,
   Register,
   ShowShibas,
 };

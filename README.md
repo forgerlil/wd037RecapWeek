@@ -82,3 +82,32 @@ Learning goals for this step are:
 7. Created a middleware to verify the token and protect the single user route
 8. Altered the duck schema to include a reference to the user that created it
 9. Altered cors setup to allow cookies from different origins
+
+## Day 04
+
+### Frontend Authentication Implementation with JWT
+
+The goal is to use JWT to authenticate users and protect routes on our client
+Learning goals for this step are:
+
+- Implement sign up and sign in features
+- Send cookie with token for verification
+- Setup authentication state
+- “Session” persistance
+- Authenticated vs Public UI (Conditional render)
+- Protected routes with React Router DOM
+
+### Step by step on how we achieved this:
+
+1. Did a few touchups on our backend:
+
+- Enabled cors to accept credentials, and enabled sameSite and secure properties on our cookies
+- Added a logout route and controller to clear cookies
+
+2. Fleshed out the handleSubmit function of our Login and Register components to send the data to the backend and receive a cookie
+3. Added an useEffect hook to our App component to request the backend and verify the token on page load and on login or register
+4. Upon success of the token's verification, we toggle an authenticated state to true, and store the user's data in another state
+5. Based on the authentication state, we toggle our navbar to display different links
+6. Added a protected route to our AddDuck component, so that only authenticated users can access it, and now have our addDuck send as owner the logged user's id.
+7. Enabled redirection for routes that should not be accessible if the user is logged in (register and login)
+8. Added a logout button to our navbar, which clears the cookies and resets all authentication states

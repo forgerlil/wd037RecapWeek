@@ -85,7 +85,7 @@ const DebuggingDuck = () => {
             alt='duck'
           />
           <p className='mt-8 text-xl font-thin'>
-            {duck.quote ?? 'Whenever you are ready!'}
+            {duck.quote || 'Whenever you are ready!'}
           </p>
         </div>
         {isAsking && (

@@ -6,13 +6,12 @@ import { useNavigate } from 'react-router-dom';
 const inputStyles =
   'w-4/5 mb-2 sm:mb-4 lg:mb-8 p-2 outline-none border-b border-transparent focus:border-slate-400 dark:focus:border-slate-100 dark:bg-slate-500 rounded transition-all';
 
-const AddDuck = () => {
+const AddDuck = ({ _id }) => {
   const navigate = useNavigate();
   const [formState, setFormState] = useState({
     name: '',
     image: '',
     quote: '',
-    owner: '',
   });
 
   const handleChange = (e) => {
@@ -24,7 +23,7 @@ const AddDuck = () => {
     try {
       const { status } = await axios.post(
         `${import.meta.env.VITE_API_URL}/ducks`,
-        { ...formState }
+        { ...formState, owner: _id }
       );
       if (status === 201) {
         toastSuccess('Duck added!');
@@ -66,14 +65,6 @@ const AddDuck = () => {
             placeholder="Duck's favorite quote"
             name='quote'
             value={formState.quote}
-            onChange={handleChange}
-            className={inputStyles}
-          />
-          <input
-            type='text'
-            placeholder="Duck's owner"
-            name='owner'
-            value={formState.owner}
             onChange={handleChange}
             className={inputStyles}
           />
