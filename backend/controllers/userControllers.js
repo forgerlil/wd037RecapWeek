@@ -19,7 +19,12 @@ const login = async (req, res, next) => {
     const token = jwt.sign({ _id: findUser._id }, process.env.JWT_SECRET);
 
     return res
-      .cookie('token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 })
+      .cookie('token', token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60,
+        sameSite: 'none',
+        secure: true,
+      })
       .sendStatus(200);
   } catch (error) {
     next(error);
@@ -44,7 +49,12 @@ const createUser = async (req, res, next) => {
     const token = jwt.sign({ _id }, process.env.JWT_SECRET);
 
     res
-      .cookie('token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 })
+      .cookie('token', token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60,
+        sameSite: 'none',
+        secure: true,
+      })
       .sendStatus(201);
   } catch (error) {
     next(error);
@@ -60,4 +70,14 @@ const getOneUser = async (req, res, next) => {
   }
 };
 
-module.exports = { login, getOneUser, createUser };
+const logout = (req, res, next) => {
+  try {
+    res
+      .clearCookie('token', { path: '/', sameSite: 'none', secure: true })
+      .sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { login, getOneUser, createUser, logout };

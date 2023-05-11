@@ -6,7 +6,7 @@ const duckSchema = new mongoose.Schema({
     unique: true,
     require: true,
     maxlength: 20,
-    match: [/^[a-zA-Z]+$/, 'must contain only letters'],
+    match: [/^[a-zA-Z\s.]+$/, 'must contain only letters'],
   },
   image: {
     type: String,
