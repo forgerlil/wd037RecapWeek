@@ -111,3 +111,21 @@ Learning goals for this step are:
 6. Added a protected route to our AddDuck component, so that only authenticated users can access it, and now have our addDuck send as owner the logged user's id.
 7. Enabled redirection for routes that should not be accessible if the user is logged in (register and login)
 8. Added a logout button to our navbar, which clears the cookies and resets all authentication states
+
+## Day 05
+
+### Using the ContextAPI to manage state
+
+The goal is to use Context for better state management of global logic on our application
+Learning goals for this step are:
+
+- Setup context for authentication
+- Enable consumer components to access context
+
+### Step by step on how we achieved this:
+
+1. Created a new context file, with a component called AuthContext to contain our authentication logic
+2. Have the Provider component of our context object wrap any children of the AuthContext component, and pass the states and functions we want to make available to the children
+3. Wrapped our App component with the context provider
+4. Created a custom hook to access the context object
+5. In any consumer components that need to access the context, we use the custom hook to access the context object directly

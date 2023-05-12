@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toastError } from '../lib/toastify';
+import { useAuthContext } from '../context/AuthContext';
 
-const Login = ({ isAuth, setGotCookie }) => {
+const Login = () => {
+  const { isAuth, setGotCookie } = useAuthContext();
+
   const navigate = useNavigate();
   const [{ email, password }, setForm] = useState({
     email: '',

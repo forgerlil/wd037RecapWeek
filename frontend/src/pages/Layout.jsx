@@ -3,11 +3,11 @@ import { NavBar, Footer } from '../components';
 import { Outlet } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Layout = (props) => {
+const Layout = () => {
   return (
     <>
       <ToastContainer />
-      <NavBar {...props} />
+      <NavBar />
       <Outlet />
       <Footer />
     </>

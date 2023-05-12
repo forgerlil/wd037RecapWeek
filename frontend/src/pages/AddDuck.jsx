@@ -2,11 +2,16 @@ import { useState } from 'react';
 import axios from 'axios';
 import { toastError, toastSuccess } from '../lib/toastify';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../context/AuthContext';
 
 const inputStyles =
   'w-4/5 mb-2 sm:mb-4 lg:mb-8 p-2 outline-none border-b border-transparent focus:border-slate-400 dark:focus:border-slate-100 dark:bg-slate-500 rounded transition-all';
 
-const AddDuck = ({ _id }) => {
+const AddDuck = () => {
+  const {
+    user: { _id },
+  } = useAuthContext();
+
   const navigate = useNavigate();
   const [formState, setFormState] = useState({
     name: '',

@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { toastError } from '../lib/toastify';
+import { useAuthContext } from '../context/AuthContext';
 
 const inputStyles =
   'w-3/5 mb-2 sm:mb-4 lg:mb-8 p-2 outline-none border-b border-transparent focus:border-slate-400 dark:focus:border-slate-100 dark:bg-slate-500 rounded transition-all';
 
-const Register = ({ isAuth, setGotCookie }) => {
+const Register = () => {
+  const { isAuth, setGotCookie } = useAuthContext();
   const navigate = useNavigate();
   const [{ firstName, lastName, email, password }, setForm] = useState({
     firstName: '',

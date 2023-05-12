@@ -3,6 +3,7 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toastError, toastSuccess } from '../lib/toastify';
+import { useAuthContext } from '../context/AuthContext';
 
 const ulStyles = {
   dropdown:
@@ -10,13 +11,9 @@ const ulStyles = {
   expanded: 'sm:flex justify-end items-center hidden sm:block mr-4',
 };
 
-const MenuList = ({
-  dropdown = false,
-  isAuth,
-  setIsAuth,
-  setUser,
-  setGotCookie,
-}) => {
+const MenuList = ({ dropdown = false }) => {
+  const { isAuth, setIsAuth, setUser, setGotCookie } = useAuthContext();
+
   const logout = async () => {
     try {
       const { status } = await axios(
@@ -62,7 +59,7 @@ const MenuList = ({
   );
 };
 
-const NavBar = (props) => {
+const NavBar = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   const showDropdown = (e) => {
@@ -83,9 +80,9 @@ const NavBar = (props) => {
         onClick={showDropdown}
       >
         <RxHamburgerMenu />
-        {toggleDropdown && <MenuList dropdown {...props} />}
+        {toggleDropdown && <MenuList dropdown />}
       </div>
-      <MenuList {...props} />
+      <MenuList />
     </div>
   );
 };
